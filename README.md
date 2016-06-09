@@ -1,16 +1,18 @@
 # Haystack Demo
 
-This is a simple HTTP microservice that can be used to demonstrate
+![alt text](https://github.com/shortishly/haystack-demo/raw/master/video/BalancingDemoUI.gif "Haystack UI")
+
+This is a simple HTTP micro service that can be used to demonstrate
 load balancing in Haystack. The service accepts HTTP GET requests and
 responds with the hostname of the container and the HTTP path used in
 the request. Haystack provides service discovery and automatic HTTP
 load balancing in a Docker environment.
 
-![alt text](https://github.com/shortishly/haystack-demo/raw/master/video/BalancingDemoUI.gif "Haystack UI")
+
+![alt text](https://github.com/shortishly/haystack-demo/raw/master/video/BalancingDemo.gif "Haystack Load Balancing")
 
 
-
-To start a demo microservice:
+To start a demo micro service:
 
 ```shell
 docker run --name demo -d shortishly/haystack_demo
@@ -35,7 +37,7 @@ To start a number of services to demonstrate load balancing in Haystack:
 (for i in {1..5}; do docker run --name demo-$(printf %03d $i) -d shortishly/haystack_demo; done)
 ```
 
-Start Haystack - replace ```172.16.1.218`` with the location of your
+Start Haystack - replace ```172.16.1.218``` with the location of your
 Docker Engine that is
 [listening on a tcp port](https://docs.docker.com/engine/quickstart/#bind-docker-to-another-host-port-or-a-unix-socket).
 
@@ -48,7 +50,7 @@ docker run \
     shortishly/haystack
 ```
 
-You should now have Haystack and 5 demo microservices running within Docker:
+You should now have Haystack and 5 demo micro services running within Docker:
 
 ```shell
 docker ps --format="{{.Names}}"
@@ -60,7 +62,7 @@ demo-004
 demo-005
 ```
 
-Now start a ```busybox`` that uses Haystack for DNS resolution as follows:
+Now start a ```busybox``` that uses Haystack for DNS resolution as follows:
 
 ```shell
   docker run \
@@ -77,10 +79,9 @@ wget -q -O /dev/stdout http://demo.haystack_demo.services.haystack/this/is/a/dem
 ```
 
 Haystack has registered ```demo.haystack_demo.services.haystack``` in
-its own DNS service, and is automatically randomly load balancing any
-request to that URL to the ```demo-001```, ```demo-002```,
-```demo-003```, ```demo-003```, ```demo-004``` and ```demo-005```
-containers.
+its own DNS service, and is automatically load balancing any
+request randomly to one of ```demo-001```, ```demo-002```,
+```demo-003```, ```demo-003```, ```demo-004``` or ```demo-005```.
 
 If you make a number of ```wget``` requests to the same URL you will
 get responses from the different containers at random:
