@@ -22,6 +22,6 @@ init(Req, Opts) ->
      cowboy_req:reply(
        200,
        Headers,
-       <<(any:to_binary(Hostname))/bytes, ": ", (cowboy_req:path(Req))/bytes>>,
+       <<(any:to_binary(Hostname))/bytes, ": ", (cowboy_req:path(Req))/bytes, "\n">>,
        Req),
      Opts}.
